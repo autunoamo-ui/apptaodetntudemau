@@ -157,7 +157,8 @@ const App: React.FC = () => {
           .info-line { font-size: 11pt; margin: 5px 0; }
           .part-header { font-size: 12pt; font-weight: bold; text-transform: uppercase; margin-top: 15px; margin-bottom: 5px; }
           .instructions { font-size: 11pt; font-style: italic; margin-bottom: 10px; color: #444; }
-          .passage { font-size: 11pt; padding: 10px; border: 1px solid #000; margin-bottom: 15px; text-align: justify; white-space: pre-line; }
+          .passage { font-size: 11pt; margin-bottom: 15px; text-align: justify; }
+          .passage p { margin: 0 0 10px 0; text-indent: 30pt; }
           .question { margin-bottom: 10px; font-size: 11pt; page-break-inside: avoid; }
           .question-text { font-weight: bold; margin-bottom: 5px; }
           .options-table { width: 100%; margin-bottom: 10px; }
@@ -189,7 +190,8 @@ const App: React.FC = () => {
       `;
 
       if (part.passage) {
-        html += `<div class="passage">${part.passage}</div>`;
+        const paragraphs = part.passage.split('\n').filter(p => p.trim() !== '');
+        html += `<div class="passage">${paragraphs.map(p => `<p>${p.trim()}</p>`).join('')}</div>`;
       }
 
       part.questions.forEach((q) => {
